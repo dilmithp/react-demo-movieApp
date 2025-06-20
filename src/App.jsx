@@ -9,7 +9,7 @@ const API_OPTIONS = {
     headers: {
         accept: 'application/json',
         Authorization: `Bearer ${API_KEY}`
-}
+    }
 }
 
 
@@ -19,11 +19,12 @@ const App = () => {
     const [movieList, setMovieList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchMovies = async () => {
+    const fetchMovies = async (query = '') => {
         setLoading(true);
         setErrorMessage('');
         try{
-            const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+            const endpoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+                :`${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
             const response = await fetch(endpoint, API_OPTIONS);
 
             if (!response.ok) {
@@ -45,15 +46,15 @@ const App = () => {
     }
 
     useEffect(() => {
-        fetchMovies();
-    },[]);
+        fetchMovies(searchTerm);
+    },[searchTerm]);
     return (
         <main>
             <div className="pattern">
                 <div className="wrapper">
                     <header>
                         <img src="./hero.png" alt="heroIMG" />
-                    <h1>Find Ur <span className="text-gradient">Favourite</span> Movies Here</h1>
+                        <h1>Find Ur <span className="text-gradient">Favourite</span> Movies Here</h1>
                         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                     </header>
                     <section className="all-movies">
@@ -66,7 +67,7 @@ const App = () => {
                         ): (
                             <ul>
                                 {movieList.map(movie => (
-                                    <MovieCard key={movie.id} movie={movie} />
+                                        <MovieCard key={movie.id} movie={movie} />
                                     )
                                 )}
                             </ul>
