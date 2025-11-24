@@ -17,7 +17,7 @@ A modern React-based movie discovery application that helps users find their fav
 
 ## 🚀 Live Demo
 
-Visit the live application: [https://dilmith.site/movie-app/](https://dilmith.site/movie-app/)
+Visit the live application: [https://dilmith.live/movie-app/](https://dilmith.site/movie-app/)
 
 ---
 
